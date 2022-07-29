@@ -28,7 +28,7 @@ impl Engine {
             WINDOW_HEIGHT / 2.0 - player_texture.height() as f32 / 2.0,
         );
 
-        let player = Player::new(player_texture, player_pos);
+        let player = Player::new(&texture_lib, player_pos);
 
         let engine = Engine {
             ctx,

@@ -3,12 +3,13 @@ use std::error::Error;
 use std::ffi::OsStr;
 use std::hash::Hash;
 
-use macroquad::prelude::{load_texture, Texture2D};
+use macroquad::prelude::{load_texture, Texture2D, Vec2};
 
 pub struct TextureLibrary {
     textures: HashMap<String, Texture2D>,
     animations: HashMap<String, Vec<Texture2D>>,
     fallback: Texture2D,
+    fallback_animation : Vec<Texture2D>
 }
 
 impl TextureLibrary {
@@ -43,8 +44,8 @@ impl TextureLibrary {
             }
         }
         println!("{:?}", animations);
-
-        let texture_library = TextureLibrary{fallback, textures, animations};
+        let fallback_animation = vec![fallback];
+        let texture_library = TextureLibrary{fallback, textures, animations, fallback_animation};
 
         Ok(texture_library)
     }
@@ -74,5 +75,12 @@ impl TextureLibrary {
             None => self.fallback.clone(),
             Some(tex) => tex.clone()
         };
+    }
+
+    pub fn get_animation(&self, name: &str) -> Vec<Texture2D> {
+        return match self.animations.get(name) {
+            None => self.fallback_animation.clone(),
+            Some(anim) => anim.clone()
+        }
     }
 }

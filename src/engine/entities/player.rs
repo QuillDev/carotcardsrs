@@ -8,21 +8,24 @@ use crate::engine::constants::PLAYER_TILES_PER_SECOND;
 use crate::engine::entities::game_object::GameObject;
 use crate::KeyCode;
 use crate::engine::textures::flipbook::Flipbook;
+use crate::engine::textures::flipbook::TimedFlipbook;
 use crate::engine::textures::texture_library;
 use crate::engine::textures::texture_library::TextureLibrary;
 
 pub struct Player {
     pub pos: Vec2,
-    flipbook: PlayerFlipbook,
+    flipbook: TimedFlipbook,
     uuid: Uuid,
     dir_vec: Vec2
 }
 
 impl Player {
-    pub fn new(texture: Texture2D, pos: Vec2) -> Player {
+    pub fn new(texture_library : &TextureLibrary, pos: Vec2) -> Player {
+        let animation = texture_library.get_animation("player_idle");
+        
         return Player {
             pos,
-            flipbook: PlayerFlipbook {texture},
+            flipbook: TimedFlipbook::new(animation, 0.5),
             uuid: Uuid::new_v4(),
             dir_vec: Vec2::default()
         }
@@ -58,19 +61,5 @@ impl GameObject for Player {
 
     fn uuid(&self) -> Uuid {
         self.uuid
-    }
-}
-
-struct PlayerFlipbook{
-    texture : Texture2D
-}
-
-impl Flipbook for PlayerFlipbook {
-    fn update(&mut self) {
-
-    }
-
-    fn get_current_texture(&self) -> Texture2D {
-        return self.texture;
     }
 }
