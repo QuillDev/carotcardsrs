@@ -5,5 +5,12 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
-tetra = "0.7.0"
+[dependencies.tetra]
+version = "0.7.0"
+
+[dependencies.glob]
+version = "0.3.0"
+
+[dependencies.uuid]
+version = "1.1.2"
+features = ["v4", "fast-rng"]
