@@ -21,7 +21,7 @@ impl Engine {
     /// Create a new engine with default state
     pub fn new(texture_lib: TextureLibrary) -> Result<Engine, Box<dyn Error>> {
         let ctx = GameContext::new();
-        // create the player
+        // create the player_idle
         let player_texture = texture_lib.get_texture("chick");
         let player_pos = Vec2::new(
             WINDOW_WIDTH / 2.0 - player_texture.width() as f32 / 2.0,
