@@ -5,19 +5,22 @@ use uuid::Uuid;
 use crate::engine::constants::PLAYER_TILES_PER_SECOND;
 use crate::engine::entities::game_object::GameObject;
 use crate::KeyCode;
+use crate::engine::textures::flipbook::Flipbook;
+use crate::engine::textures::texture_library;
+use crate::engine::textures::texture_library::TextureLibrary;
 
 pub struct Player {
     pub pos: Vec2,
-    texture: Texture2D,
+    flipbook: PlayerFlipbook,
     uuid: Uuid,
     dir_vec: Vec2
 }
 
 impl Player {
-    pub fn new(texture: Texture2D, pos: Vec2) -> Player {
+    pub fn new(texture_library: TextureLibrary, pos: Vec2) -> Player {
         return Player {
             pos,
-            texture,
+            flipbook: PlayerFlipbook {},
             uuid: Uuid::new_v4(),
             dir_vec: Vec2::default()
         }
@@ -26,7 +29,7 @@ impl Player {
 
 impl GameObject for Player {
     fn update(&mut self) {
-        let mut vec = Vec2::zero();
+        let mut vec = Vec2::default();
         if is_key_down(KeyCode::W) {
             vec.y -= PLAYER_TILES_PER_SECOND;
         }
@@ -40,6 +43,7 @@ impl GameObject for Player {
             vec.x += PLAYER_TILES_PER_SECOND;
         }
         self.dir_vec = vec;
+        self.flipbook.update();
     }
 
     fn render(&mut self) {
@@ -47,10 +51,24 @@ impl GameObject for Player {
         self.pos.x = self.pos.x + (self.dir_vec.x * delta);
         self.pos.y = self.pos.y + (self.dir_vec.y * delta);
 
-        draw_texture(self.texture, self.pos.x, self.pos.y, WHITE);
+        draw_texture(self.flipbook.get_current_texture(), self.pos.x, self.pos.y, WHITE);
     }
 
     fn uuid(&self) -> Uuid {
         self.uuid
+    }
+}
+
+struct PlayerFlipbook{
+    texture : Texture2D
+}
+
+impl Flipbook for PlayerFlipbook {
+    fn update(&mut self) {
+
+    }
+
+    fn get_current_texture(&self) -> Texture2D {
+        return self.texture;
     }
 }
