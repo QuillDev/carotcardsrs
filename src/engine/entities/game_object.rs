@@ -1,9 +1,8 @@
-use tetra::Context;
 use uuid::Uuid;
 use crate::GameContext;
 
 pub trait GameObject {
-    fn update(&mut self, ctx: &mut GameContext, tctx: &mut Context);
-    fn render(&mut self, ctx: &mut Context);
+    fn update(&mut self);
+    fn render(&mut self);
     fn uuid(&self) -> Uuid;
 }

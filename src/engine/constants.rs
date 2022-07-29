@@ -4,3 +4,5 @@ pub const WORLD_UNIT: f32 = 16.0;
 
 pub const PHYSICS_UPDATE_RATE: f32 = 60.0;
 pub const PLAYER_TILES_PER_SECOND: f32 =  WORLD_UNIT * 1.5;
+
+pub const UPDATE_RATE: f32 = 1.0 / 60.0;

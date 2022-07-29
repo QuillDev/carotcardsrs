@@ -1,25 +1,26 @@
 use std::collections::HashMap;
+use std::error::Error;
 use std::ffi::OsStr;
-use tetra::Context;
-use tetra::graphics::Texture;
+use macroquad::prelude::{load_texture, Texture2D};
 
 pub struct TextureLibrary {
-    textures: HashMap<String, Texture>,
-    fallback: Texture,
+    textures: HashMap<String, Texture2D>,
+    fallback: Texture2D,
 }
 
 impl TextureLibrary {
 
-    pub fn new(ctx: &mut Context) -> tetra::Result<TextureLibrary> {
+    pub async fn new() -> Result<TextureLibrary, Box<dyn Error>> {
 
-        let fallback = Texture::new(ctx, "resources/textures/default.png")?;
-        let mut textures: HashMap<String, Texture> = HashMap::new();
+        let fallback = load_texture("resources/textures/default.png").await?;
+        let mut textures: HashMap<String, Texture2D> = HashMap::new();
+
         for res in glob::glob("resources/textures/**/*.png").expect("Failed to read glob pattern") {
             match res {
                 Ok(path) => {
                     let name = path.file_stem().unwrap().to_str().unwrap();
                     let file = path.to_str().unwrap();
-                    let texture = Texture::new(ctx, file)?;
+                    let texture = load_texture(file).await?;
                     textures.insert(String::from(name), texture);
                 },
                 _ => {}
@@ -31,7 +32,7 @@ impl TextureLibrary {
     }
 
     /// Gets a texture from the texture library
-    pub fn get_texture(&self, name: &str) -> Texture {
+    pub fn get_texture(&self, name: &str) -> Texture2D {
         return match self.textures.get(name) {
             None => self.fallback.clone(),
             Some(tex) => tex.clone()

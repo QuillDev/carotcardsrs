@@ -1,6 +1,6 @@
-use tetra::Context;
 use uuid::Uuid;
-use crate::{GameContext, TextureLibrary, Tile, Vec2};
+use macroquad::prelude::*;
+use crate::{GameContext, TextureLibrary, Tile};
 use crate::engine::constants::WORLD_UNIT;
 use crate::engine::entities::game_object::GameObject;
 
@@ -26,20 +26,20 @@ impl TileRow {
 
 pub struct Tileset {
     rows: Vec<TileRow>,
-    pos: Vec2<f32>,
+    pos: Vec2,
     uuid: Uuid
 }
 
 impl Tileset {
 
     /// Create a new default tileset with the given position
-    pub fn new(pos: Vec2<f32>) -> Tileset {
+    pub fn new(pos: Vec2) -> Tileset {
         let rows: Vec<TileRow> = Vec::new();
         return Tileset{rows, pos, uuid: Uuid::new_v4()}
     }
 
     /// Load the tilest from the given file
-    pub fn load(texture_lib: &TextureLibrary, path: &str, pos: Vec2<f32>) -> Tileset {
+    pub fn load(texture_lib: &TextureLibrary, path: &str, pos: Vec2) -> Tileset {
         let mut set = Tileset::new(pos);
         for (y, line) in std::fs::read_to_string(path).unwrap().split("\n").into_iter().enumerate() {
             let mut  row = TileRow::new();
@@ -68,16 +68,16 @@ impl Tileset {
 
 impl GameObject for Tileset {
 
-    fn update(&mut self, _: &mut GameContext, _: &mut Context) {}
+    fn update(&mut self) {}
 
-    fn render(&mut self, ctx: &mut Context) {
+    fn render(&mut self) {
         for (row) in self.rows.iter_mut() {
             for (tile) in row.tiles.iter_mut() {
                 // if tile is some or none
                 match tile {
                     None => {}
                     Some(tile) => {
-                        tile.render(ctx);
+                        tile.render();
                     }
                 }
             }
