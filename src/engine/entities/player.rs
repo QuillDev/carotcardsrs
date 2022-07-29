@@ -19,10 +19,10 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(texture_library: TextureLibrary, pos: Vec2) -> Player {
+    pub fn new(texture: Texture2D, pos: Vec2) -> Player {
         return Player {
             pos,
-            flipbook: PlayerFlipbook {},
+            flipbook: PlayerFlipbook {texture},
             uuid: Uuid::new_v4(),
             dir_vec: Vec2::default()
         }
