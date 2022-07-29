@@ -49,8 +49,9 @@ async fn main() -> Result<(), Box<dyn Error>>{
             state.elapsed -= UPDATE_RATE;
         }
 
-        clear_background(SKYBLUE);
+        clear_background(BLACK);
         engine.render();
+        draw_text(format!("FPS: {}", get_fps()).as_str(), 40.0, 40.0, 36.0, GREEN);
         next_frame().await;
     }
 }
