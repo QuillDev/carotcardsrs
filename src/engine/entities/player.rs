@@ -1,7 +1,9 @@
 use std::ops::{Add, Mul};
+
 use macroquad::prelude::*;
 use macroquad::time;
 use uuid::Uuid;
+
 use crate::engine::constants::PLAYER_TILES_PER_SECOND;
 use crate::engine::entities::game_object::GameObject;
 use crate::KeyCode;

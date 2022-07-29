@@ -1,6 +1,7 @@
 use macroquad::color::WHITE;
 use macroquad::prelude::*;
 use uuid::Uuid;
+
 use crate::{GameContext, TextureLibrary, Vec2};
 use crate::engine::entities::game_object::GameObject;
 

@@ -1,9 +1,9 @@
-use uuid::Uuid;
 use macroquad::prelude::*;
+use uuid::Uuid;
+
 use crate::{GameContext, TextureLibrary, Tile};
 use crate::engine::constants::WORLD_UNIT;
 use crate::engine::entities::game_object::GameObject;
-
 
 pub struct TileRow {
     tiles: Vec<Option<Tile>>
