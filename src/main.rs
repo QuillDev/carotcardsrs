@@ -1,22 +1,20 @@
 extern crate core;
 
-mod engine;
-
-use std::borrow::BorrowMut;
 use std::error::Error;
-use std::fmt::format;
-use std::mem;
-use std::sync::Mutex;
+
 use macroquad::prelude::*;
-use crate::engine::constants::{UPDATE_RATE, WINDOW_HEIGHT, WINDOW_WIDTH, WORLD_UNIT};
-use crate::engine::tiles::tile::Tile;
+
 use engine::textures::texture_library::TextureLibrary;
+
+use crate::engine::constants::{UPDATE_RATE, WINDOW_HEIGHT, WINDOW_WIDTH, WORLD_UNIT};
 use crate::engine::context::game_context::GameContext;
 use crate::engine::engine::Engine;
-use crate::engine::entities::game_object::GameObject;
 use crate::engine::entities::player::Player;
-use crate::engine::tiles::tileset::{TileRow, Tileset};
-use crate::KeyCode::Up;
+use crate::engine::tiles::tile::Tile;
+use crate::engine::tiles::tileset::Tileset;
+
+mod engine;
+
 
 struct State {
     elapsed: f32

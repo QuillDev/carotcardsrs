@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::error::Error;
 use std::ffi::OsStr;
+
 use macroquad::prelude::{load_texture, Texture2D};
 
 pub struct TextureLibrary {
